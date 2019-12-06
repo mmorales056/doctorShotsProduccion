@@ -1,0 +1,68 @@
+{% extends 'doctorshots/base.html' %} {% load staticfiles%} {% block titulo %} Welcome to Doctor Shot {% endblock %} {% block body %}
+
+<body> {% endblock %} {% block header %}
+    <header class="header"> {% endblock %} {% block contenedor %} {% endblock %} {% block parallax %}
+        <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'doctorshots/img/header.jpg'%}">
+            {% if request.session.logueado.3 != '1' and request.session.logueado.3 != '2' %}
+            <div class="rotateIn animated letra">¡¡Bienvenido!!</div>
+            <!-- <div><img  src="{% static 'doctorshots/img/baccccccccck.gif' %}"></div> -->
+
+
+            {% elif request.session.logueado.3 == '2' or request.session.logueado.3 == '1' %}
+            <section class="our-webcoderskull padding-lg">
+                <div class="container">
+                    <div class="row heading heading-icon">
+                        <h2>Reportes</h2>
+                    </div>
+                    <ul class="row">
+                        <li class="col-12 col-md-6 col-lg-3">
+                            <div class="cnt-block equal-hight" style="height: 349px;" onclick="ventasDia('{% url 'doctorshots:ventasdia'%}')" data-toggle="modal" data-target="#modalgrafica">
+                                <h1 class="Ancient"> Ventas del día
+                                </h1>
+                            </div>
+                        </li>
+                        <li class="col-12 col-md-6 col-lg-3">
+                            <div class="cnt-block equal-hight" style="height: 349px;" onclick="productoMasVendido('{% url 'doctorshots:productosmasvendidos'%}')" data-toggle="modal" data-target="#modalgrafica">
+                                
+                                <h1 class="Ancient">Top Productos Mas Vendidos</h1>
+                            </div>
+                        </li>
+                        <li class="col-12 col-md-6 col-lg-3">
+                            <div class="cnt-block equal-hight" style="height: 349px;">
+                                <h3><a data-toggle="modal" data-target="#modalgrafica">ventas de hoy</a></h3>
+                                <h1 class="Ancient">MES</h1>
+                            </div>
+                        </li>
+                        <li class="col-12 col-md-6 col-lg-3">
+                            <div class="cnt-block equal-hight" style="height: 349px;">
+                                <h3><a data-toggle="modal" data-target="#modalgrafica">ventas de hoy</a></h3>
+                                <h1 class="Ancient">AÑO</h1>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <!-- modal con grafica -->
+            <div class="modal fade" id="modalgrafica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">reporte</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                        </div>
+                        <div class="modal-body">
+                            <figure><canvas id="speedChart" class="grafica" width="600" height="400"></canvas></figure>
+                            <h5 id="TotalVentasDia"> </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <img src="{% static 'doctorshots/img/baccccccccck.gif" >   -->
+
+            {% endif %} {% endblock %}
