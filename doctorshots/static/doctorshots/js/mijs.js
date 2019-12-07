@@ -194,7 +194,9 @@ function ventasDia(ruta) {
                 datos.push(respuesta.venta[i].total);
                 suma += respuesta.venta[i].total;
             }
-            document.getElementById("TotalVentasDia").innerHTML = 'Total ventas del día: ' + suma;
+            console.log(label);
+            console.log(datos);
+            document.getElementById("detalle").innerHTML = 'Total ventas del día: ' + suma;
             new Chart(document.getElementsByClassName("grafica"), {
                 type: 'bar',
                 data: {
@@ -228,12 +230,18 @@ function productoMasVendido(ruta) {
         success: function(respuesta) {
             let labels = [];
             let datos = [];
+            var proTop = "";
+            var tam = respuesta.producto.length
+            proTop += respuesta.producto[tam - 1].producto__nombreProducto
             for (const i in respuesta.producto) {
+
                 labels.push(respuesta.producto[i].producto__nombreProducto)
                 datos.push(respuesta.producto[i].total)
+
             }
-            console.log(labels);
-            console.log(datos);
+            console.log(proTop);
+
+            document.getElementById("detalle").innerHTML = 'Producto top: ' + proTop;
             new Chart(document.getElementsByClassName("grafica"), {
                 type: 'line',
                 data: {
