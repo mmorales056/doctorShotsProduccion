@@ -240,7 +240,8 @@ function productoMasVendido(ruta) {
 
             }
             console.log(proTop);
-
+            console.log(labels);
+            console.log(datos);
             document.getElementById("detalle").innerHTML = 'Producto top: ' + proTop;
             new Chart(document.getElementsByClassName("grafica"), {
                 type: 'line',

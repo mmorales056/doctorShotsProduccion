@@ -396,7 +396,8 @@ def productosMasVendidos(request):
         #Obtengo ventas con la fecha del día
         ventas = Ventas.objects.filter(fecha__contains=fecha).values('id')
         #Obtengo el los productos que se vendieron segun las ventas de hoy 
-        produ = DetalleVenta.objects.all().filter(venta_id__in=ventas).values('producto__nombreProducto','cantidad').annotate(total=Sum('cantidad')).order_by('total')
+        produ = DetalleVenta.objects.all().filter(venta_id__in=ventas).values('producto__nombreProducto').annotate(total=Sum('cantidad')).order_by('total')
+        
         return JsonResponse({'producto':list(produ)})
     except Exception as e:
         return HttpResponse(e)
