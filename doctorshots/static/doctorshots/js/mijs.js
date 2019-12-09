@@ -170,7 +170,7 @@ function verDetalle(ruta) {
                 salida += "<td>" + respuesta.producto[i].producto__nombreProducto + "</td>";
                 salida += "<td>" + respuesta.producto[i].precio + "</td>";
                 salida += "<td>" + respuesta.producto[i].cantidad + "</td>";
-                salida += "<td> <a class='btn btn-danger'>Eliminar</a> </td>"
+                salida += "<td> <a class='btn btn-danger' onclick='eliminarProducto(respuesta.producto[i].id)' >Eliminar</a> </td>"
                 salida += "</tr>";
             }
             document.getElementById("detalle").innerHTML = salida;
@@ -179,6 +179,14 @@ function verDetalle(ruta) {
             alert('error');
         }
     });
+}
+
+//eliminar Producto
+function eliminarProducto(id) {
+    $.ajax({
+
+    })
+
 }
 
 function ventasDia(ruta) {
