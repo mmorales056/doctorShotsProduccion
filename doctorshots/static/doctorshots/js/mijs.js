@@ -170,7 +170,7 @@ function verDetalle(ruta) {
                 salida += "<td>" + respuesta.producto[i].producto__nombreProducto + "</td>";
                 salida += "<td>" + respuesta.producto[i].precio + "</td>";
                 salida += "<td>" + respuesta.producto[i].cantidad + "</td>";
-                salida += "<td> <a class='btn btn-danger'  data-toggle='confirmation' hrfe='#'>Eliminar</a> </td>"
+                salida += "<td> <a class='btn btn-danger'>Eliminar</a> </td>"
                 salida += "</tr>";
             }
             document.getElementById("detalle").innerHTML = salida;
@@ -194,16 +194,13 @@ function ventasDia(ruta) {
                 datos.push(respuesta.venta[i].total);
                 suma += respuesta.venta[i].total;
             }
-            console.log(label);
-            console.log(datos);
             document.getElementById("detalle").innerHTML = 'Total ventas del día: ' + suma;
             new Chart(document.getElementsByClassName("grafica"), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: label,
                     datasets: [{
-                        label: "Total (Venta)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        label: "Ventas del día",
                         data: datos
                     }]
                 },
@@ -234,21 +231,17 @@ function productoMasVendido(ruta) {
             var tam = respuesta.producto.length
             proTop += respuesta.producto[tam - 1].producto__nombreProducto
             for (const i in respuesta.producto) {
-
                 labels.push(respuesta.producto[i].producto__nombreProducto)
                 datos.push(respuesta.producto[i].total)
-
             }
-            console.log(proTop);
-            console.log(labels);
-            console.log(datos);
             document.getElementById("detalle").innerHTML = 'Producto top: ' + proTop;
-            new Chart(document.getElementsByClassName("grafica"), {
-                type: 'line',
+            new Chart(document.getElementsByClassName("top"), {
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: "Top mas vendido",
+                        label: "Unidades Vendidas",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
                         data: datos
                     }]
                 },
@@ -270,3 +263,36 @@ function productoMasVendido(ruta) {
         }
     })
 }
+
+$(document).ready(function() {
+    $('table').DataTable({
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        }
+    });
+});

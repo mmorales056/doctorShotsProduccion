@@ -123,7 +123,7 @@ def eliminarEmpleado(request,id):
 def formularioProductos(request,mensaje):
     try:
         ses = request.session.get('logueado',False)
-        if ses and ses[3]=='2':
+        if ses and ses[3]=='2' or ses and ses[3]=='1':
             #CApturamos todas las categorias 
             c = CategoriaProducto.objects.all()
             print(c)
@@ -254,7 +254,6 @@ def formNuevaMesa(request):
     if ses and ses[3]=='2':        
         return render(request,'doctorshots/nuevaMesa.html')
 
-
 def guardarmesa(request):
     try:
         idmesa = request.POST['numeroMesa']  
@@ -268,10 +267,6 @@ def guardarmesa(request):
 
     except Exception as e:
         return HttpResponse(e)
-
-    
-
-    
 
 def nuevaVenta(request):
     try:
@@ -302,14 +297,10 @@ def nuevaVenta(request):
             contexto = {'categorias': c, 'venta':v, 'productos':p}
             return render(request,'doctorshots/nuevaVenta.html',contexto)    
     
-    
-    
-
 def listaprodcat(request):
     p = Productos.objects.filter(categoria=request.GET['categoria'])
     contexto = {'productos': p}
     return render(request,'doctorshots/selectprod.html',contexto)
-
 
 def agregarProducto(request):
     try:
@@ -355,8 +346,6 @@ def agregarProducto(request):
 def carta(request):
     return render(request, 'doctorshots/carta.html')  
 
-
-
 def pagar(request, id):
     try:
         venta = Ventas.objects.get(pk=id)        
@@ -374,7 +363,7 @@ def detalleVenta(request,id):
     try:
         from django.core import serializers
         venta = Ventas.objects.get(pk=id)
-        detalle = DetalleVenta.objects.filter(venta=venta).values('precio','cantidad','venta_id','producto__nombreProducto')        
+        detalle = DetalleVenta.objects.filter(venta=venta).values('precio','cantidad','venta_id','producto__nombreProducto','id')        
         return JsonResponse({'producto': list(detalle)})
 
     except Exception as e:
@@ -401,4 +390,3 @@ def productosMasVendidos(request):
         return JsonResponse({'producto':list(produ)})
     except Exception as e:
         return HttpResponse(e)
-        
