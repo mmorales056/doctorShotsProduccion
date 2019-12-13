@@ -5,6 +5,8 @@ from django.forms.models import model_to_dict
 from doctorshots.models import Usuarios,Productos, CategoriaProducto, Mesas, Ventas, DetalleVenta
 from datetime import date
 from datetime import datetime
+from django.db.models import Count,Sum
+
 
 
 # Create your views here.
@@ -200,12 +202,12 @@ def formularioEditarProducto(request,id):
 #Metodo que toma los datos del formulario editar y los actualiza
 def actualizarProducto(request):
     try:
-        h= request.POST['habilitado']
-        if h == 'on':
-            h= True
-        else:
-            h= False
-            
+        h= request.POST.get('habilitado', 'off') == 'on'
+        # if h == 'on':
+        #     h= True
+        # else:
+        #     h= False
+        print(h)
         id = request.POST['id']
         p = Productos.objects.get(pk=id)
         p.codigoProducto= request.POST['codigoProducto']
@@ -256,13 +258,14 @@ def formNuevaMesa(request):
 
 def guardarmesa(request):
     try:
-        idmesa = request.POST['numeroMesa']  
+        idmesa = request.POST['numeroMesa']
+        print(idmesa) 
         mesa = Mesas (
             numeroMesa = idmesa
         )
         mesa.save()
         
-        return HttpResponseRedirect(reverse ('doctorshots:formventas',('mesaAdd',)))
+        return HttpResponseRedirect(reverse ('doctorshots:formventas',args=('mesaAdd',)))
 
 
     except Exception as e:
@@ -388,5 +391,22 @@ def productosMasVendidos(request):
         produ = DetalleVenta.objects.all().filter(venta_id__in=ventas).values('producto__nombreProducto').annotate(total=Sum('cantidad')).order_by('total')
         
         return JsonResponse({'producto':list(produ)})
+    except Exception as e:
+        return HttpResponse(e)
+
+def historicoVentas(request):
+    try:
+        ventas = Ventas.objects.all().values('id','mesero_id__nombres','total','fecha','mesero_id')
+        contexto= {'ventas':ventas}
+        print(contexto)
+        return render(request,'doctorshots/historico.html',contexto)
+    except Exception as e:
+        return HttpResponse(e)
+    
+
+def empleadoTop(request):
+    try:
+        ventas = Ventas.objects.all().values('mesero_id__nombres').annotate(total=Sum('total')).order_by('total')
+        return JsonResponse({'empleado':list(ventas)}) 
     except Exception as e:
         return HttpResponse(e)

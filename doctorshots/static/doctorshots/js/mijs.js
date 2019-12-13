@@ -92,7 +92,7 @@ function cargarModal() {
 function formNuevaMesa(ruta, ruta1, idMesa) {
     let select = document.getElementById("mesas");
     if (select.value === 'nueva') {
-        $('#modalVentas').modal({
+        $('#modalVen').modal({
             show: true,
         });
         $.ajax({
@@ -304,3 +304,78 @@ $(document).ready(function() {
         }
     });
 });
+
+function empleadoTop(ruta) {
+    $.ajax({
+        url: ruta,
+        dataType: 'json',
+        success: function(respuesta) {
+            var labels = [];
+            var datos = [];
+            for (const i in respuesta.empleado) {
+                labels.push(respuesta.empleado[i].mesero_id__nombres)
+                datos.push(respuesta.empleado[i].total)
+            }
+            //document.getElementById("detalle").innerHTML = 'Producto top: ' + proTop;
+            new Chart(document.getElementsByClassName("empleadotop"), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Empleado top",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                        data: datos
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                suggestedMin: 10,
+                                suggestedMax: 30
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        error: function() {
+            console.log('error');
+        }
+    })
+
+}
+
+function formatear() {
+    var options = { style: 'currency', currency: 'USD' };
+    var numberFormat = new Intl.NumberFormat('en-US', options);
+    var totales = document.getElementsByClassName('total');
+    var empl = document.getElementsByClassName('totalE')
+    var aux = 0;
+    for (let i = 0; i < totales.length; i++) {
+        aux = parseFloat(totales[i].innerHTML);
+        console.log(aux);
+        totales[i].innerHTML = numberFormat.format(aux);
+    }
+
+    for (let i = 0; i < empl.length; i++) {
+        aux = parseFloat(empl[i].innerHTML);
+        console.log(aux);
+        empl[i].innerHTML = numberFormat.format(aux);
+    }
+}
+
+function formatearInv() {
+    var options = { style: 'currency', currency: 'USD' };
+    var numberFormat = new Intl.NumberFormat('en-US', options);
+    var totales = document.getElementsByClassName('precioV');
+    var aux = 0;
+
+    for (let i = 0; i < totales.length; i++) {
+        aux = parseFloat(totales[i].innerHTML);
+        console.log(aux);
+        totales[i].innerHTML = numberFormat.format(aux);
+    }
+
+
+}

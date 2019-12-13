@@ -1,6 +1,6 @@
 {% extends "doctorshots/base.html" %} {% load staticfiles%} {% block titulo %} Inventario {% endblock %} {% block body %}
 
-<body class="body-inventario">{% endblock %} {% block header %}
+<body class="body-inventario" onload ="formatearInv()">{% endblock %} {% block header %}
     <header class="header-inventario"> {% endblock %} {% block contenedor %}
         <div class="container-fluid mt-4">
             <!--Escritorio-->
@@ -114,27 +114,27 @@
                                 </thead>
                                 <tbody>
                                     {% for producto in productos %}
+                                    {% if producto.habilitado %}
                                     <tr>
                                         <td class="font-pacman">{{producto.codigoProducto}}</td>
                                         <td class="font-pacman">{{producto.nombreProducto}}</td>
                                         <td class="font-pacman">{{producto.categoria}}</td>
                                         <td class="font-pacman">{{producto.get_presentacionProducto_display}}</td>
-                                        <td class="font-pacman">{{producto.precioVenta}}</td>
+                                        <td class="font-pacman precioV">{{producto.precioVenta}}</td>
                                         <td class="font-pacman">{{producto.cantidad}}</td>
                                         <td>
                                             <a class="btn btn-info font-drop" data-toggle="modal" data-target="#modalProducto" onclick="verProducto('{% url 'doctorshots:verproducto' producto.id %}')">Ver</a>
                                         {% if request.session.logueado.3 == '2' and request.session %}
                                             <a class="btn btn-warning font-drop" data-toggle="modal" data-target="#modalProducto" onclick="editarProducto('{% url 'doctorshots:formeditarproducto' producto.id %}')">Editar</a>
                                             {%endif%}
-                                            {% if request.session.logueado.3 == '2' and request.session %}
-                                            <a class="btn btn-danger font-drop" href="{% url 'doctorshots:eliminarproducto' producto.id%}">Delete</a>
-                                            {% endif %}
+                                         
                                         </td>
                                     </tr>
+                                    {% endif %}
                                     {% endfor %}
-
                                 </tbody>
                             </table>
+                            
                             {% if 'Actualizado' in mensaje %}
                             <div class="alert alert-success" role="alert">
                                 Producto Actualizado con exito

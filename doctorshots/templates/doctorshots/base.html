@@ -76,6 +76,9 @@
             <li class="nav-item active">
                 <a class="nav-link " href="{% url 'doctorshots:formventas' 'false' %}">Ventas</a>
             </li>
+             <li class="nav-item active">
+                <a class="nav-link " href="{% url 'doctorshots:historicoventas' %}">Historico</a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link " href="{% url 'doctorshots:logout' %}">logout</a>
             </li>
@@ -109,6 +112,10 @@
           
             <li class="nav-item active">
                 <a class="nav-link " href="{% url 'doctorshots:formventas' 'false' %}">Ventas</a>
+                
+            </li>
+             <li class="nav-item active">
+                <a class="nav-link " href="{% url 'doctorshots:historicoventas' %}">Historico</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link " href="{% url 'doctorshots:logout' %}">logout</a>
@@ -142,7 +149,7 @@
 <script src="{% static 'doctorshots/js/jquery.min.js' %}"></script>
 <script src="{% static 'doctorshots/js/popper.min.js' %}"></script>
 <script src="{% static 'doctorshots/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'doctorshots/js/bootstrap-confirmation.js' %}"></script>
+<script src="{% static 'doctorshots/js/bootstrap-confirmation.min.js' %}"></script>
 <script src="{% static 'doctorshots/js/parallax.min.js'%}"></script>
 <script src="{% static 'doctorshots/js/Chart.min.js'%}"></script>
 <script src="{% static 'doctorshots/js/datatables.min.js'%}"></script>

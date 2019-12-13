@@ -50,40 +50,36 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Compra</span>
         </div>
-        <input type="number" name="precioCompra" id="precioVenta" class="form-control" onchange="notNegative(this)" required>
+        <input type="number" name="precioCompra" id="precioVenta" class="form-control" onchange="notNegative(this)" value="{{producto.precioCompra}}"required>
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Venta</span>
         </div>
-        <input type="number" name="precioVenta" class="form-control" onkeyup="format(this)" onchange="format(this)" required>
+        <input type="number" name="precioVenta" class="form-control" onkeyup="format(this)" onchange="format(this)" value="{{producto.precioVenta}}"required>
     </div>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Cantidad</span>
         </div>
-        <input type="number" name="cantidad" class="form-control" required>
+        <input type="number" name="cantidad" class="form-control" value="{{producto.cantidad}}" required>
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <div class="input-group-text">
-                <input type="checkbox" aria-label="Checkbox for following text input" name="habilitado">
+                <input type="checkbox" aria-label="Checkbox for following text input" name="habilitado" {% if producto.habilitado %} checked {%endif%}>
             </div>
-        </div>
+        </div>        
         <input type="text" class="form-control" aria-label="Text input with checkbox" value="habilitar" readonly>
     </div>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-6">
-                <input type="submit" name="accion" value="Actualizar" class="btn btn-info">
-            </div>
-            <div class="d-block d-sm-block d-md-none">
-                <div class="col-6">
-                    <a class="btn btn-danger font-drop" href="{% url 'doctorshots:eliminarproducto' producto.id %}">Delete</a>
-                </div>
+                <input type="submit" name="accion" value="Actualizar" class="btn btn-info"   id="btn-confirm">
             </div>
         </div>
     </div>
 </form>
+

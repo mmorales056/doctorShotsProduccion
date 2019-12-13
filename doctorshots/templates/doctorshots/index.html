@@ -28,9 +28,9 @@
                             </div>
                         </li>
                         <li class="col-12 col-md-6 col-lg-3">
-                            <div class="cnt-block equal-hight" style="height: 349px;">
-                                <h3><a data-toggle="modal" data-target="#modalgrafica">ventas de hoy</a></h3>
-                                <h1 class="Ancient">MES</h1>
+                            <div class="cnt-block equal-hight" style="height: 349px;"  data-toggle="modal" data-target="#modalEmpleadoTop" onclick="empleadoTop('{% url 'doctorshots:empleadotop'%}')">
+                                <h3>Empleados Top</h3>
+                                
                             </div>
                         </li>
                         <li class="col-12 col-md-6 col-lg-3">
@@ -73,6 +73,25 @@
                         </div>
                         <div class="modal-body">
                             <figure><canvas id="speedChart" class="top" width="600" height="400"></canvas></figure>
+                            <h5 id="detalle"> </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="modal fade" id="modalEmpleadoTop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">reporte</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                        </div>
+                        <div class="modal-body">
+                            <figure><canvas id="speedChart" class="empleadotop" width="600" height="400"></canvas></figure>
                             <h5 id="detalle"> </h5>
                         </div>
                         <div class="modal-footer">

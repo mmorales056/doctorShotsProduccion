@@ -37,5 +37,7 @@ urlpatterns = [
     path('detalleventa/<int:id>', views.detalleVenta,name='detalleventa'),
     path('ventasdia',views.ventasDia,name='ventasdia'),
     path('productosmasvendidos', views.productosMasVendidos, name='productosmasvendidos'),
+    path('historicoventas',views.historicoVentas, name="historicoventas"),
+    path('empleadotop', views.empleadoTop, name='empleadotop')
 
 ]
