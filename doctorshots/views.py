@@ -25,12 +25,8 @@ def login(request):
     try:
         usuario = request.POST['usuario']
         password = request.POST['clave']
-        q= Usuarios.objects.get(usuario = usuario)
-       
-
-        #Fecha actual
-
-        
+        q= Usuarios.objects.get(usuario = usuario)       
+        #Fecha actual        
         if q.clave == password:
             request.session['logueado'] = [q.cedula, q.nombres, q.clave, q.Rol, q.id ]
             return render(request,'doctorshots/index.html')
@@ -353,7 +349,10 @@ def pagar(request, id):
     try:
         venta = Ventas.objects.get(pk=id)        
         venta.estado=False
-        
+        ses = request.session.get('logueado',False)
+        m = Usuarios.objects.get(cedula=ses[0])
+        venta.mesero_id= m.id
+        m.save()
         mesa = Mesas.objects.get(pk= venta.mesa_id)
         mesa.disponible=True
         venta.save()
@@ -403,7 +402,6 @@ def historicoVentas(request):
     except Exception as e:
         return HttpResponse(e)
     
-
 def empleadoTop(request):
     try:
         ventas = Ventas.objects.all().values('mesero_id__nombres').annotate(total=Sum('total')).order_by('total')

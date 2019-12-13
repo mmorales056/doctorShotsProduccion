@@ -376,6 +376,4 @@ function formatearInv() {
         console.log(aux);
         totales[i].innerHTML = numberFormat.format(aux);
     }
-
-
 }
